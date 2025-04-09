@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUXE Lifestyle | Premium Apparel & Accessories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+    }
+
+    /* Navbar */
+    footer {
+      background: #333;
+      color: white;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    footer h3 {
+      margin-bottom: 15px;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer ul li {
+      margin-bottom: 10px;
+    }
+
+    footer ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #2874f0;
+    }
+
+    .nav-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 8px;
+      padding: 5px 15px;
+      flex: 1;
+    }
+
+    .search-input {
+      border: none;
+      background: transparent;
+      padding: 10px;
+      outline: none;
+      width: 300px;
+    }
+
+    .search-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .nav-icons a {
+      margin-left: 20px;
+      color: #333;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    .nav-icons a i {
+      margin-right: 5px;
+    }
+
+    /* Categories Bar */
+    .categories-bar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: white;
+      padding: 15px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .category-item img {
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 5px;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 80vh;
+      background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+      url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1920') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      background: #8AA896;
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    /* Curated Categories */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 50px;
+    }
+    .suggestion-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .suggestion-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #222;
+  }
+
+  .suggestion-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .suggestion-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    width: 220px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+
+  .suggestion-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .suggestion-card picture img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .card-info {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .card-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .card-info p {
+    color: #0077cc;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .card-info button {
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .card-info button:hover {
+    background-color: #005fa3;
+  }
+
+  .card-info button:hover {
+    background-color: #005fa3;
+  }
+
+    .card-info button:hover {
+      background-color: #005fa3;
+    }
+    
+
+    .category-card {
+      position: relative;
+      height: 400px;
+      background: #f5f5f5;
+      overflow: hidden;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+
+    /* Featured Products */
+    .featured-products {
+      padding: 50px;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: #F4F1EA;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 15px;
+      width: 350px;
+      margin: 20px;
+      border: 1px solid #ddd;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: white;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    
+
+    @media (max-width: 768px) {
+      .categories, .product-grid, footer {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 20px;
+      }
+
+      .search-box {
+        flex: 1 100%;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .categories-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .category-item {
+        width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">LUXE Lifestyle</div>
+    <div class="nav-section">
+      <div class="search-box">
+        <input type="search" class="search-input" placeholder="Search for Products, Brands and More" />
+        <button class="search-button"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="nav-icons">
+        <a href="login.html"><i class="far fa-user"></i> Login</a>
+        <a href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+        <a href="sellerform.html"><i class="fas fa-store"></i> Become a Seller</a>
+        <a href="#a"><i class="fas fa-store"></i> Recommended</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flipkart-Style Category Section -->
+  <div class="categories-bar">
+    <div class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/29327f40e9c4d26b.png?q=100" alt="Kilos">
+      <span>Kilos</span>
+    </div>
+  
+    <a href="mobiles.html" class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/22fddf3c7da4c4f4.png?q=100" alt="Mobiles">
+      <span>Mobiles</span>
+    </a>
+    <div class="category-item">
+    <a href="fashion.html" class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/0d75b34f7d8fbcb3.png?q=100" alt="Fashion">
+      <span>Fashion</span>
+    </a>
+     </div>
+
+    <div class="category-item">
+    <a href="electronic.html"class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/69c6589653afdb9a.png?q=100" alt="Electronics">
+      <span>Electronics</span>
+    </a>
+    </div>
+    <div class="category-item">
+      <a href="home-decor.html"class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/ab7e2b022a4587dd.jpg?q=100" alt="Home">
+      <span>Home & Furniture</span>
+    </a>
+    </div>
+    <div class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/0139228b2f7eb413.jpg?q=100" alt="Appliances">
+      <span>Appliances</span>
+    </div>
+    <div class="category-item">
+      <a href="flightbook.html"class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/71050627a56b4693.png?q=100" alt="Flights">
+      <span>Flight Bookings</span>
+      </a>
+    </div>
+    <div class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/05d708653beff580.png?q=100" alt="Beauty">
+      <span>Two Wheelers</span>
+    </div>
+    <div class="category-item">
+      <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/dff3f7adcf3a90c6.png?q=100" alt="Two Wheelers">
+      <span>Beauty, Toys & More</span>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Elevate Your Everyday</h1>
+      <p>Curated Essentials for Modern Living</p>
+      <button class="cta-button">Shop the Collection</button>
+    </div>
+  </section>
+
+  <section id="a" class="categories">
+    <!-- ... your category cards ... -->
+      <h2>Recommended for You</h2>
+      <div class="suggestion-grid">
+        <div class="suggestion-card">
+          <picture>
+            <source srcset="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+            <source srcset="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Running Shoes" />
+          </picture>
+          <div class="card-info">
+            <h3>Running Shoes</h3>
+            <p>Rs. 1499.99</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+  
+        <div class="suggestion-card">
+          <picture>
+            <source srcset="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+            <source srcset="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Smart Watch" />
+          </picture>
+          <div class="card-info">
+            <h3>Smart Watch</h3>
+            <p>Rs. 1999.00</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+  
+        <div class="suggestion-card">
+          <picture>
+            <source srcset="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+            <source srcset="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Travel Bag" />
+          </picture>
+          <div class="card-info">
+            <h3>Travel Bag</h3>
+            <p>Rs. 1399.49</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+  
+        <div class="suggestion-card">
+          <picture>
+            <source srcset="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+            <source srcset="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Headphones" />
+          </picture>
+          <div class="card-info">
+            <h3>Wireless Headphones</h3>
+            <p>Rs. 2499.00</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+  
+        <div class="suggestion-card">
+          <picture>
+            <source srcset="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+            <source srcset="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Camera" />
+          </picture>
+          <div class="card-info">
+            <h3>Vintage Camera</h3>
+            <p>Rs. 3599.99</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <footer>
+    <div>
+      <h3>Customer Service</h3>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Order Tracking</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About Us</h3>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Follow Us</h3>
+      <ul>
+        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Newsletter</h3>
+      <p>Subscribe to get exclusive deals</p>
+      <input type="email" placeholder="Enter your email" style="padding: 10px; width: 100%;">
+    </div>
+  </footer> 
+</body>
+</html>

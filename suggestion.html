@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Suggestions</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9ebeb;
+      color: #131212;
+      padding: 2rem;
+    }
+
+    .suggestion-section {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .suggestion-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #222;
+    }
+
+    .suggestion-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .suggestion-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      width: 300px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .suggestion-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .suggestion-card picture img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-info {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card-info h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card-info p {
+      color: #0077cc;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .card-info button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .card-info button:hover {
+      background-color: #005fa3;
+    }
+
+    @media (max-width: 768px) {
+      .suggestion-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="suggestion-section">
+    <h2>Recommended for You</h2>
+    <div class="suggestion-grid">
+      <div class="suggestion-card">
+        <picture>
+          <source srcset="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+          <source srcset="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Running Shoes" />
+        </picture>
+        <div class="card-info">
+          <h3>Running Shoes</h3>
+          <p>Rs. 1499.99</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="suggestion-card">
+        <picture>
+          <source srcset="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+          <source srcset="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Smart Watch" />
+        </picture>
+        <div class="card-info">
+          <h3>Smart Watch</h3>
+          <p>Rs. 1999.00</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="suggestion-card">
+        <picture>
+          <source srcset="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+          <source srcset="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Travel Bag" />
+        </picture>
+        <div class="card-info">
+          <h3>Travel Bag</h3>
+          <p>Rs. 1399.49</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="suggestion-card">
+        <picture>
+          <source srcset="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+          <source srcset="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Headphones" />
+        </picture>
+        <div class="card-info">
+          <h3>Wireless Headphones</h3>
+          <p>Rs. 2499.00</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="suggestion-card">
+        <picture>
+          <source srcset="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/avif">
+          <source srcset="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" type="image/webp">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Camera" />
+        </picture>
+        <div class="card-info">
+          <h3>Vintage Camera</h3>
+          <p>Rs. 3599.99</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

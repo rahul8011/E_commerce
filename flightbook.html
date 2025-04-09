@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking | SkyJourney</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles with Gradient Colors */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --secondary-gradient: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+            --accent-gradient: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
+            --dark-blue: #1a1a2e;
+            --light-text: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-radius: 16px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-blue);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Animated Header Styles */
+        .booking-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+            border-radius: var(--border-radius);
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--box-shadow);
+            transform-style: preserve-3d;
+            transform: perspective(500px);
+            animation: floatHeader 6s ease-in-out infinite;
+        }
+
+        @keyframes floatHeader {
+            0%, 100% { transform: perspective(500px) translateY(0) rotateX(0deg); }
+            50% { transform: perspective(500px) translateY(-10px) rotateX(2deg); }
+        }
+
+        .booking-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .booking-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+        .booking-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 3D Search Form Styles */
+        .search-form {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 3rem;
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .search-form:hover {
+            transform: translateY(-5px) perspective(500px) rotateX(1deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+            font-size: 0.95rem;
+        }
+
+        .form-group input, 
+        .form-group select {
+            padding: 1rem 1.2rem;
+            border: 2px solid rgba(67, 97, 238, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: rgba(255,255,255,0.8);
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .trip-type {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .trip-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .trip-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .trip-option label {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            background: rgba(67, 97, 238, 0.1);
+            color: #4361ee;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .trip-option input[type="radio"]:checked + label {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .trip-option input[type="radio"]:focus + label {
+            border-color: #4361ee;
+        }
+
+        /* Animated Search Button */
+        .search-btn {
+            background: var(--primary-gradient);
+            color: var(--light-text);
+            border: none;
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-btn:hover {
+            background: var(--secondary-gradient);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.3);
+        }
+
+        .search-btn:active {
+            transform: translateY(1px);
+        }
+
+        .search-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .search-btn:hover::before {
+            left: 100%;
+        }
+
+        /* 3D Flight Cards with Hover Effects */
+        .flight-results {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .results-header h2 {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sort-options select {
+            padding: 0.7rem 1rem;
+            border: 2px solid rgba(67, 97, 238, 0.2);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.8);
+            transition: var(--transition);
+        }
+
+        .sort-options select:focus {
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .flight-card {
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            background: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .flight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: var(--transition);
+        }
+
+        .flight-card:hover {
+            transform: translateY(-10px) perspective(500px) rotateX(2deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .flight-card:hover::before {
+            width: 8px;
+            background: var(--secondary-gradient);
+        }
+
+        .flight-info {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .departure, .arrival {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .flight-time {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 0.3rem;
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .flight-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .flight-airport {
+            font-weight: 600;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+        }
+
+        .flight-duration {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .duration-time {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .duration-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #4361ee, transparent);
+            position: relative;
+        }
+
+        .duration-line::before,
+        .duration-line::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            animation: pulse 2s infinite;
+        }
+
+        .duration-line::before {
+            left: 0;
+        }
+
+        .duration-line::after {
+            right: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .flight-airline {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .airline-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(76, 201, 240, 0.3);
+        }
+
+        .airline-name {
+            font-weight: 600;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+        }
+
+        .flight-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .book-btn {
+            background: var(--primary-gradient);
+            color: var(--light-text);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-btn:hover {
+            background: var(--secondary-gradient);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.3);
+        }
+
+        .book-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .booking-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .flight-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .departure, .arrival {
+                align-items: center;
+                text-align: center;
+            }
+
+            .flight-duration {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 1rem;
+            }
+
+            .duration-time {
+                margin-bottom: 0;
+                margin-right: 1rem;
+            }
+
+            .duration-line {
+                flex-grow: 1;
+            }
+
+            .flight-price {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .book-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .booking-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .booking-header p {
+                font-size: 1rem;
+            }
+
+            .search-form {
+                padding: 1.5rem;
+            }
+
+            .trip-type {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating clouds animation */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            filter: blur(10px);
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(50px) translateY(-20px); }
+            100% { transform: translateX(100px) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating clouds background -->
+    <div class="clouds" id="clouds"></div>
+
+    <div class="container">
+        <!-- Flight Search Section -->
+        <section class="booking-header">
+            <h1>Find Your Perfect Flight</h1>
+            <p>Search and compare flights from hundreds of airlines worldwide</p>
+        </section>
+
+        <section class="search-form">
+            <form id="flight-search">
+                <div class="trip-type">
+                    <div class="trip-option">
+                        <input type="radio" id="round-trip" name="trip-type" value="round-trip" checked>
+                        <label for="round-trip"><i class="fas fa-exchange-alt"></i> Round Trip</label>
+                    </div>
+                    <div class="trip-option">
+                        <input type="radio" id="one-way" name="trip-type" value="one-way">
+                        <label for="one-way"><i class="fas fa-arrow-right"></i> One Way</label>
+                    </div>
+                    <div class="trip-option">
+                        <input type="radio" id="multi-city" name="trip-type" value="multi-city">
+                        <label for="multi-city"><i class="fas fa-route"></i> Multi-City</label>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="from"><i class="fas fa-plane-departure"></i> From</label>
+                        <input type="text" id="from" placeholder="City or Airport" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="to"><i class="fas fa-plane-arrival"></i> To</label>
+                        <input type="text" id="to" placeholder="City or Airport" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure"><i class="far fa-calendar-alt"></i> Departure</label>
+                        <input type="date" id="departure" required>
+                    </div>
+                    <div class="form-group" id="return-date-group">
+                        <label for="return"><i class="far fa-calendar-alt"></i> Return</label>
+                        <input type="date" id="return" required>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="passengers"><i class="fas fa-users"></i> Passengers</label>
+                        <select id="passengers">
+                            <option value="1">1 Adult</option>
+                            <option value="2">2 Adults</option>
+                            <option value="3">3 Adults</option>
+                            <option value="4">4 Adults</option>
+                            <option value="family">Family/Group</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="class"><i class="fas fa-couch"></i> Class</label>
+                        <select id="class">
+                            <option value="economy">Economy</option>
+                            <option value="premium">Premium Economy</option>
+                            <option value="business">Business</option>
+                            <option value="first">First Class</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-btn">
+                    <span class="loading-spinner" id="spinner"></span>
+                    Search Flights
+                </button>
+            </form>
+        </section>
+
+        <!-- Flight Results Section -->
+        <section class="flight-results">
+            <div class="results-header">
+                <h2>Available Flights</h2>
+                <div class="sort-options">
+                    <select id="sort-by">
+                        <option value="price">Sort by: Price (Lowest)</option>
+                        <option value="duration">Sort by: Duration</option>
+                        <option value="departure">Sort by: Departure Time</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Flight Card 1 -->
+            <div class="flight-card">
+                <div class="flight-airline">
+                    <div class="airline-logo"><i class="fas fa-plane"></i></div>
+                    <span class="airline-name">Air India</span>
+                </div>
+                <div class="flight-info">
+                    <div class="departure">
+                        <span class="flight-time">09:30</span>
+                        <span class="flight-date">Mon, 15 May</span>
+                        <span class="flight-airport">DEL (Delhi)</span>
+                    </div>
+                    <div class="flight-duration">
+                        <span class="duration-time">2h 30m</span>
+                        <div class="duration-line"></div>
+                    </div>
+                    <div class="arrival">
+                        <span class="flight-time">12:00</span>
+                        <span class="flight-date">Mon, 15 May</span>
+                        <span class="flight-airport">BOM (Mumbai)</span>
+                    </div>
+                </div>
+                <div class="flight-price">
+                    <span class="price-amount">₹5,499</span>
+                    <button class="book-btn">Book Now</button>
+                </div>
+            </div>
+
+            <!-- Flight Card 2 -->
+            <div class="flight-card">
+                <div class="flight-airline">
+                    <div class="airline-logo"><i class="fas fa-plane"></i></div>
+                    <span class="airline-name">IndiGo</span>
+                </div>
+                <div class="flight-info">
+                    <div class="departure">
+                        <span class="flight-time">11:45</span>
+                        <span class="flight-date">Mon, 15 May</span>
+                        <span class="flight-airport">DEL (Delhi)</span>
+                    </div>
+                    <div class="flight-duration">
+                        <span class="duration-time">2h 15m</span>
+                        <div class="duration-line"></div>
+                    </div>
+                    <div class="arrival">
+                        <span class="flight-time">14:00</span>
+                        <span class="flight-date">Mon, 15 May</span>
+                        <span class="flight-airport">BOM (Mumbai)</span>
+                    </div>
+                </div>
+                <div class="flight-price">
+                    <span class="price-amount">₹4,999</span>
+                    <button class="book-btn">Book Now</button>
+                </div>
+            </div>
+
+            <!-- Flight Card 3 -->
+            <div class="flight-card">
+                <div class="flight-airline">
+                    <div class="airline-logo"><i class="fas fa-plane"></i></div>
+                    <span class="airline-name">Vistara</span>
+                </div>
+                <div class="flight-info">
+                    <div class="departure">
+                        <span class="flight-time">15:20</span>
+                        <span class="flight-date">Mon, 15 May</span>
+                        <span class="flight-airport">DEL (Delhi)</span>
+                    </div>
+                    <div class="flight-duration">
+                        <span class="duration-time">2h 25m</span>
+                        <div class="duration-line"></div>
+                    </div>
+                    <div class="arrival">
+                        <span class="flight-time">17:45</span>
+                        <span class="flight-date">Mon, 15 May</span>
+                        <span class="flight-airport">BOM (Mumbai)</span>
+                    </div>
+                </div>
+                <div class="flight-price">
+                    <span class="price-amount">₹6,299</span>
+                    <button class="book-btn">Book Now</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Simple script to handle the one-way/round-trip toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const tripTypeRadios = document.querySelectorAll('input[name="trip-type"]');
+            const returnDateGroup = document.getElementById('return-date-group');
+            
+            tripTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'one-way') {
+                        returnDateGroup.style.display = 'none';
+                        document.getElementById('return').removeAttribute('required');
+                    } else {
+                        returnDateGroup.style.display = 'block';
+                        document.getElementById('return').setAttribute('required', '');
+                    }
+                });
+            });
+
+            // Create floating clouds
+            const cloudsContainer = document.getElementById('clouds');
+            for (let i = 0; i < 10; i++) {
+                const cloud = document.createElement('div');
+                cloud.classList.add('cloud');
+                cloud.style.width = `${Math.random() * 200 + 100}px`;
+                cloud.style.height = `${Math.random() * 60 + 40}px`;
+                cloud.style.top = `${Math.random() * 100}%`;
+                cloud.style.left = `${Math.random() * 100}%`;
+                cloud.style.opacity = Math.random() * 0.5 + 0.3;
+                cloud.style.animationDuration = `${Math.random() * 60 + 60}s`;
+                cloud.style.animationDelay = `${Math.random() * 20}s`;
+                cloudsContainer.appendChild(cloud);
+            }
+
+            // Form submission with loading spinner
+            const flightSearchForm = document.getElementById('flight-search');
+            const spinner = document.getElementById('spinner');
+            
+            flightSearchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                spinner.style.display = 'inline-block';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    // In a real app, you would update the flight results here
+                }, 2000);
+            });
+
+            // Sort functionality
+            const sortSelect = document.getElementById('sort-by');
+            sortSelect.addEventListener('change', function() {
+                const flightCards = Array.from(document.querySelectorAll('.flight-card'));
+                
+                flightCards.sort((a, b) => {
+                    const aPrice = parseFloat(a.querySelector('.price-amount').textContent.replace(/[^\d.]/g, ''));
+                    const bPrice = parseFloat(b.querySelector('.price-amount').textContent.replace(/[^\d.]/g, ''));
+                    return aPrice - bPrice;
+                });
+
+                const resultsContainer = document.querySelector('.flight-results');
+                flightCards.forEach(card => {
+                    resultsContainer.appendChild(card);
+                    card.style.animation = 'none';
+                    void card.offsetWidth; // Trigger reflow
+                    card.style.animation = 'fadeIn 0.5s ease-out';
+                });
+            });
+
+            // Add animation to book buttons
+            document.querySelectorAll('.book-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.innerHTML = 'Booking... <i class="fas fa-spinner fa-spin"></i>';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = 'Booked! <i class="fas fa-check"></i>';
+                        this.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
