@@ -1,10 +1,7 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/main.js',
-  '/https://m.media-amazon.com/images/I/61Id6WJDWqL.jpg',
+
+  '/main.js'
 ];
 
 // Install event: caching files
